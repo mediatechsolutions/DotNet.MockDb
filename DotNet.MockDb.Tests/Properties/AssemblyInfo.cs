@@ -8,7 +8,6 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription ("")]
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("Mediatech Solutions")]
-[assembly: AssemblyTitle ("DotNet.MockDb")]
 [assembly: AssemblyCopyright("Copyright © 2017")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
