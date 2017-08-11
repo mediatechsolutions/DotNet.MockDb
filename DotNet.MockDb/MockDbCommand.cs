@@ -7,6 +7,7 @@ namespace DotNet.MockDb
         private bool _isDisposed;
         private bool _isPrepared;
         private bool _isCancelled;
+        private int _numberOfNonQueryExecutions;
         
         public MockDbCommand()
         {
@@ -14,6 +15,7 @@ namespace DotNet.MockDb
             _isPrepared = false;
             _isCancelled = false;
             Parameters = new MockDbParameterCollection();
+            _numberOfNonQueryExecutions = 0;
         }
         
         public void Dispose()
@@ -40,7 +42,8 @@ namespace DotNet.MockDb
 
         public int ExecuteNonQuery()
         {
-            throw new System.NotImplementedException();
+            _numberOfNonQueryExecutions++;
+            return 0; //TODO: Add expectations in order to return a specific value.
         }
 
         public IDataReader ExecuteReader()

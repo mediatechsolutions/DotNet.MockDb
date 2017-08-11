@@ -1,5 +1,5 @@
 # DotNet.MockDb
-.NET database mocking framework for unit testing purposes. [![Build Status](https://travis-ci.org/rubms/DotNet.MockDb.svg?branch=master)](https://travis-ci.org/rubms/DotNet.MockDb)
+.NET database mocking framework for unit testing purposes. [![Build Status](https://travis-ci.org/mediatechsolutions/DotNet.MockDb.svg?branch=master)](https://travis-ci.org/mediatechsolutions/DotNet.MockDb)
 
 ## Why DotNet.MockDb
 

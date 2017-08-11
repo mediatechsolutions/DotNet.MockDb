@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DotNet.MockDb</RootNamespace>
     <AssemblyName>DotNet.MockDb</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Irony, Version=1.0.7.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47">
+      <HintPath>..\packages\Irony.Core.1.0.7\lib\net461\Irony.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Caching" />
@@ -42,12 +45,20 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constraints\ColumnConstraint.cs" />
+    <Compile Include="Constraints\FromConstraint.cs" />
+    <Compile Include="Constraints\IConstraint.cs" />
+    <Compile Include="Constraints\SelectConstraint.cs" />
+    <Compile Include="Grammars\Sql89Grammar.cs" />
     <Compile Include="MockDbCommand.cs" />
     <Compile Include="MockDbConnection.cs" />
     <Compile Include="MockDbParameter.cs" />
     <Compile Include="MockDbParameterCollection.cs" />
     <Compile Include="MockDbTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
