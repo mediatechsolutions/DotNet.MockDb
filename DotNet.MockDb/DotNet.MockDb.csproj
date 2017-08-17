@@ -48,7 +48,6 @@
     <Compile Include="Constraints\ColumnConstraint.cs" />
     <Compile Include="Constraints\FromConstraint.cs" />
     <Compile Include="Constraints\IConstraint.cs" />
-    <Compile Include="Constraints\SelectConstraint.cs" />
     <Compile Include="Grammars\Sql89Grammar.cs" />
     <Compile Include="MockDbCommand.cs" />
     <Compile Include="MockDbConnection.cs" />
@@ -56,6 +55,11 @@
     <Compile Include="MockDbParameterCollection.cs" />
     <Compile Include="MockDbTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Constraints\WhereConstraint.cs" />
+    <Compile Include="Constraints\DeleteConstraint.cs" />
+    <Compile Include="Constraints\SelectConstraint.cs" />
+    <Compile Include="Constraints\Expressions\BinaryExpressionConstraint.cs" />
+    <Compile Include="Constraints\Expressions\IExpressionConstraint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -68,4 +72,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Constraints\Expressions\" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Irony.Parsing;
+using DotNet.MockDb.Constraints.Expressions;
 
 namespace DotNet.MockDb.Constraints
 {
@@ -8,6 +9,7 @@ namespace DotNet.MockDb.Constraints
     {
         private readonly List<ColumnConstraint> _columnConstraints;
         private FromConstraint _fromConstraint;
+		private WhereConstraint _whereConstraint;
 
         public SelectConstraint()
         {
@@ -26,15 +28,21 @@ namespace DotNet.MockDb.Constraints
             return this;
         }
 
+		public SelectConstraint Where(IExpressionConstraint expression)
+		{
+			_whereConstraint = new WhereConstraint(expression);
+			return this;
+		}
+
         public bool AppliesTo(ParseTreeNode parseTreeNode)
         {
             if (parseTreeNode == null || parseTreeNode.Term.Name != "stmtList")
                 return false;
 
-            return parseTreeNode.ChildNodes.Any(
-                statement => IsSelectStatement(statement)
-                             && AppliesToAllTheColumnConstraints(statement)
-                             && AppliesToFromConstraint(statement));
+            return parseTreeNode.ChildNodes.Any(statement => IsSelectStatement(statement)
+                && AppliesToAllTheColumnConstraints(statement)
+                && AppliesToFromConstraint(statement)
+				&& AppliesToWhereConstraint(statement));
         }
 
         private static bool IsSelectStatement(ParseTreeNode parseTreeNode)
@@ -47,9 +55,8 @@ namespace DotNet.MockDb.Constraints
             if (!_columnConstraints.Any())
                 return true;
             
-            return parseTreeNode.ChildNodes.Any(
-                selectList => selectList.Term.Name == "selList"
-                              && _columnConstraints.All(constraint => constraint.AppliesTo(selectList)));
+            return parseTreeNode.ChildNodes.Any(selectList => selectList.Term.Name == "selList"
+            	&& _columnConstraints.All(constraint => constraint.AppliesTo(selectList)));
         }
 
         private bool AppliesToFromConstraint(ParseTreeNode parseTreeNode)
@@ -57,9 +64,17 @@ namespace DotNet.MockDb.Constraints
             if (_fromConstraint == null)
                 return true;
 
-            return parseTreeNode.ChildNodes.Any(
-                from => from.Term.Name == "fromClauseOpt"
-                        && _fromConstraint.AppliesTo(from));
+            return parseTreeNode.ChildNodes.Any(from => from.Term.Name == "fromClauseOpt"
+            	&& _fromConstraint.AppliesTo(from));
         }
+
+		private bool AppliesToWhereConstraint(ParseTreeNode parseTreeNode)
+		{
+			if (_whereConstraint == null)
+				return true;
+
+			return parseTreeNode.ChildNodes.Any(from => from.Term.Name == "whereClauseOpt"
+				&& _whereConstraint.AppliesTo(from));
+		}
     }
 }
