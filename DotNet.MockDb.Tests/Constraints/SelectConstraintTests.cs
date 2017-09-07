@@ -1,4 +1,5 @@
 ﻿using DotNet.MockDb.Constraints;
+using DotNet.MockDb.Constraints.Expressions;
 using DotNet.MockDb.Grammars;
 using Irony.Parsing;
 using NUnit.Framework;
@@ -67,12 +68,12 @@ namespace DotNet.MockDb.Tests.Constraints
 		{
 			var sql = @"SELECT [Schema1].[Table1].[Column1], Schema1.Table1.Column2
 				FROM Schema1.Table1
-				WHERE [Table1].[Column1] = 1 AND ([Table1].[Column2] LIKE '%test%' OR [Table1].[Column3] < 16)";
+				WHERE [Table1].[Column1] = 5 AND ([Table1].[Column2] LIKE '%test%' OR [Table1].[Column3] < 16)";
 			var parser = new Parser(new Sql89Grammar());
 			var parseTree = parser.Parse(sql);
 			Assert.That(new SelectConstraint()
 				.From("Table1", "Schema1")
-				.Where()
+				.Where(WhereConstraint.EqualTo(new ColumnIdExpressionConstraint("Column1", "Table1"), new NumberExpressionConstraint(5)))
 				.AppliesTo(parseTree.Root), Is.True);
 			/*
 			 * binExpr -> binExpr  binOp  exprList

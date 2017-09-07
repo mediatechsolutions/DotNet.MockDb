@@ -3,7 +3,7 @@ using Irony.Parsing;
 
 namespace DotNet.MockDb.Constraints.Expressions
 {
-	public class BinaryExpressionConstraint: IExpressionConstraint, IConstraint
+	public class BinaryExpressionConstraint: IExpressionConstraint
 	{
 		private string operation;
 		private IExpressionConstraint operand1;

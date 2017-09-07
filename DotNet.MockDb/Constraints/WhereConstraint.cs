@@ -1,15 +1,16 @@
 ﻿using System;
 using Irony.Parsing;
 using DotNet.MockDb.Constraints.Expressions;
+using System.Linq;
 
 namespace DotNet.MockDb.Constraints
 {
 	public class WhereConstraint: IConstraint
 	{
-		IExpressionConstraint expression;
+		private IExpressionConstraint _expression;
 		public WhereConstraint(IExpressionConstraint expression)
 		{
-			this.expression = expression;
+			this._expression = expression;
 		}
 
 		public static IExpressionConstraint And(IExpressionConstraint op1, IExpressionConstraint op2)
@@ -54,7 +55,8 @@ namespace DotNet.MockDb.Constraints
 
 		public bool AppliesTo(ParseTreeNode parseTreeNode) 
 		{
-			return true;
+			return parseTreeNode.ChildNodes.ElementAt(0).Term.Name == "WHERE"
+                && _expression.AppliesTo(parseTreeNode.ChildNodes.ElementAt(1));
 		}
 	}
 }

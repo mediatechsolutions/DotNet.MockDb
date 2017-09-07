@@ -73,8 +73,8 @@ namespace DotNet.MockDb.Constraints
 			if (_whereConstraint == null)
 				return true;
 
-			return parseTreeNode.ChildNodes.Any(from => from.Term.Name == "whereClauseOpt"
-				&& _whereConstraint.AppliesTo(from));
+			return parseTreeNode.ChildNodes.Any(were => were.Term.Name == "whereClauseOpt"
+				&& _whereConstraint.AppliesTo(were));
 		}
     }
 }

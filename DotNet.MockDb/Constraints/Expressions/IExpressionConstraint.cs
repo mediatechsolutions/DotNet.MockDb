@@ -2,7 +2,7 @@
 
 namespace DotNet.MockDb.Constraints.Expressions
 {
-	public interface IExpressionConstraint
+	public interface IExpressionConstraint: IConstraint
 	{
 	}
 }

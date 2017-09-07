@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constraints\ColumnConstraint.cs" />
+    <Compile Include="Constraints\Expressions\NumberExpressionConstraint.cs" />
+    <Compile Include="Constraints\Expressions\ColumnIdExpressionConstraint.cs" />
     <Compile Include="Constraints\FromConstraint.cs" />
     <Compile Include="Constraints\IConstraint.cs" />
     <Compile Include="Grammars\Sql89Grammar.cs" />
@@ -72,7 +74,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Constraints\Expressions\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
