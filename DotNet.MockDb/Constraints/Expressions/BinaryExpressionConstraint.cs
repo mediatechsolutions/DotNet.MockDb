@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Irony.Parsing;
 
 namespace DotNet.MockDb.Constraints.Expressions
@@ -18,7 +19,13 @@ namespace DotNet.MockDb.Constraints.Expressions
 
 		public bool AppliesTo(ParseTreeNode parseTreeNode) 
 		{
-			throw new NotImplementedException();
+			return parseTreeNode.Term.Name == "binExpr"
+				&& (parseTreeNode.ChildNodes.ElementAt(1).Term.Name == "binOp" 
+					&& parseTreeNode.ChildNodes.ElementAt(1).Token.Value == operation)
+				&& ((operand1.AppliesTo (parseTreeNode.ChildNodes.ElementAt (0)) 
+						&& operand2.AppliesTo (parseTreeNode.ChildNodes.ElementAt (2)))
+					|| (operand1.AppliesTo (parseTreeNode.ChildNodes.ElementAt (2)) 
+							&& operand2.AppliesTo (parseTreeNode.ChildNodes.ElementAt(0))));
 		}
 	}
 }
