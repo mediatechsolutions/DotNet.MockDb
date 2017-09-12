@@ -75,19 +75,20 @@ namespace DotNet.MockDb.Tests.Constraints
 				.From("Table1", "Schema1")
 				.Where(WhereConstraint.EqualTo(new ColumnIdExpressionConstraint("Column1", "Table1"), new NumberExpressionConstraint(5)))
 				.AppliesTo(parseTree.Root), Is.True);
-			/*
-			 * binExpr -> binExpr  binOp  exprList
-			 * 
-			 * binExpr -> Id   binOp  number
-			 * 
-			 * binOp ->  Token.Value 
-			 * 
-			 * number -> Token.Value
-			 * 
-			 * exprList -> binExpr
-			 * 
-			 * unExpr -> unOp | string_literal | number | funCall
-			*/
 		}
-    }
+
+		[Test]
+		public void NotMatchingWhere()
+		{
+			var sql = @"SELECT [Schema1].[Table1].[Column1], Schema1.Table1.Column2
+				FROM Schema1.Table1
+				WHERE [Table1].[Column1] = 5";
+			var parser = new Parser(new Sql89Grammar());
+			var parseTree = parser.Parse(sql);
+			Assert.That(new SelectConstraint()
+				.From("Table1", "Schema1")
+				.Where(WhereConstraint.EqualTo(new ColumnIdExpressionConstraint("Column1", "Table1"), new NumberExpressionConstraint(6)))
+				.AppliesTo(parseTree.Root), Is.False);
+		}
+}
 }

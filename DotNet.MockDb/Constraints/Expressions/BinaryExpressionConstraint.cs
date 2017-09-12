@@ -21,7 +21,7 @@ namespace DotNet.MockDb.Constraints.Expressions
 		{
 			return parseTreeNode.Term.Name == "binExpr"
 				&& (parseTreeNode.ChildNodes.ElementAt(1).Term.Name == "binOp" 
-					&& parseTreeNode.ChildNodes.ElementAt(1).Token.Value == operation)
+					&& parseTreeNode.ChildNodes.ElementAt(1).ChildNodes.ElementAt(0).Token.Value as string == operation)
 				&& ((operand1.AppliesTo (parseTreeNode.ChildNodes.ElementAt (0)) 
 						&& operand2.AppliesTo (parseTreeNode.ChildNodes.ElementAt (2)))
 					|| (operand1.AppliesTo (parseTreeNode.ChildNodes.ElementAt (2)) 

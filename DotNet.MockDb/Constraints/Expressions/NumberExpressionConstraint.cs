@@ -15,7 +15,7 @@ namespace DotNet.MockDb.Constraints.Expressions
 		public bool AppliesTo(ParseTreeNode parseTreeNode) 
 		{
             return parseTreeNode.Term.Name == "number"
-                           && decimal.Parse(parseTreeNode.Token.Value as string) == _value;
+                           && decimal.Parse(parseTreeNode.Token?.ValueString as string) == _value;
         }
 	}
 }
